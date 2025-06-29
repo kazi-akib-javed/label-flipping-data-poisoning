@@ -1,24 +1,25 @@
-# label-flipping-data-poisoning
-This code demonstrates a clean-label data poisoning attack against a Logistic Regression model trained on a binary classification subset of the Iris dataset. The core idea of clean-label poisoning is to manipulate the features of a small number of training samples, subtly shifting them towards another class's characteristics, while preserving their original, correct labels. This contrasts with traditional poisoning where labels are flipped, making it harder to detect.
+# Clean-Label Data Poisoning Attack Demonstration
 
-The experiment proceeds by:
+## Abstract
 
-    Loading and preparing the Iris dataset for a binary classification task (distinguishing between two classes).
+This repository contains the code for demonstrating a **clean-label data poisoning attack** against a Logistic Regression model. Unlike traditional label-flipping attacks where the true labels of poisoned samples are deliberately inverted, a clean-label attack is far more stealthy: it manipulates only the **features** of a small number of training samples, subtly shifting them towards the characteristics of another class, while **preserving their original, correct labels**. This makes detection significantly harder as the poisoned data points appear "clean" to a human inspector or simple validation checks.
 
-    Splitting the data into training and testing sets.
+The experiment focuses on a binary classification subset of the well-known Iris dataset. It involves:
+1.  Preparing the dataset for binary classification.
+2.  Crafting "poisoned" training samples by perturbing their features (while keeping labels correct).
+3.  Training a Logistic Regression model on both clean and poisoned datasets.
+4.  Evaluating and comparing the performance (accuracy, precision, recall, F1-score) of both models.
+5.  Visualizing the impact on feature distributions and the model's decision boundary.
 
-    Crafting a small set of "poisoned" samples. These samples, originally belonging to one class, have their feature values slightly perturbed to resemble the mean features of the other class, but their true class labels remain unchanged.
+The objective is to showcase how an attacker can degrade model performance and compromise its integrity by injecting seemingly innocuous (correctly labeled) but strategically altered data points into the training set, highlighting the significant vulnerability of machine learning models to this advanced type of adversarial attack.
 
-    Training two Logistic Regression models: one on the original, clean training data, and another on the training data augmented with these clean-label poisoned samples.
+## Getting Started
 
-    Evaluating both models on the unseen test set using various metrics including overall accuracy, precision, recall, and F1-score for each class.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-    Visualizing the results through three key figures:
+### Prerequisites
 
-        A bar chart comparing the overall test accuracy of the clean and poisoned models.
+You'll need Python 3.x installed. The project relies on several standard scientific computing and machine learning libraries. You can install them using `pip`:
 
-        Histograms illustrating the feature distributions of clean training data for both classes, with markers highlighting the location of the injected poisoned samples. This shows how poisoned samples, despite their correct labels, occupy an ambiguous or misleading region in the feature space.
-
-        Decision boundary plots for both the clean and poisoned models (projected onto two key features). These plots visually demonstrate how the poisoned data can subtly shift or distort the model's decision boundary, leading to misclassifications on legitimate test samples, thereby explaining the observed performance degradation.
-
-The objective is to showcase how an attacker can degrade model performance by injecting seemingly innocuous (correctly labeled) but strategically altered data points into the training set, highlighting the vulnerability of machine learning models to this type of adversarial attack.
+```bash
+pip install numpy matplotlib scikit-learn pandas
